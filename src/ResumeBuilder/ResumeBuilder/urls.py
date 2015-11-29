@@ -16,12 +16,16 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from TemplateProvider.api import TemplatesResource
+from PeoplePortal.api import UserResource
+from tastypie.api import Api
 
-template_resource = TemplatesResource()
+resume_api = Api(api_name='v1')
+resume_api.register(TemplatesResource())
+resume_api.register(UserResource())
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^render/', include('Renderer.urls', namespace='Renderer')),
     url(r'^template/', include('TemplateProvider.urls', namespace='TemplateProvider')),
-    url(r'^api/', include(template_resource.urls)),
+    url(r'^api/', include(resume_api.urls)),
 ]
