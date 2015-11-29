@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from TemplateProvider.api import TemplatesResource
+
+template_resource = TemplatesResource()
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^render/', include('Renderer.urls', namespace='Renderer')),
     url(r'^template/', include('TemplateProvider.urls', namespace='TemplateProvider')),
+    url(r'^api/', include(template_resource.urls)),
 ]
